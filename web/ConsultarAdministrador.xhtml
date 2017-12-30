@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Lista de administradores</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+        
+    </h:head>
+
+    <h:body onload="document.form.edusuario.focus()">
+          
+        <ui:include src="menuAdmin.xhtml"/>
+  
+        <br/>
+
+       <div  class="form" align="center">
+
+            <h:form prependId="false" id="form">      
+
+                <h3>Cadastro de Administradores</h3>        
+
+                <h:panelGrid columns="1" >
+
+                    
+                    <h:inputText id="edID" value="#{administradorMB.administrador.idadm}"/>                    
+                    
+                    <h:inputText id="edusuario" p:autofocus="true" p:placeholder="USUÁRIO" value="#{administradorMB.administrador.usuario}" label="usuario" onkeypress="return arrumaEnter(this, event)">
+                        <f:validateLength maximum="20" minimum="03"/> 
+                    </h:inputText>                    
+                    
+                    <h:inputSecret id="edsenha" p:placeholder="SENHA" value="#{administradorMB.administrador.senha}" label="passaword" onkeypress="return arrumaEnter(this, event)">
+                        <f:validateLength maximum="20" minimum="01"/> 
+                    </h:inputSecret>
+
+
+                </h:panelGrid>
+
+                <br />    
+
+                <h:commandButton value="Salvar" class="btn btn-primary" action="#{administradorMB.salvar()}"/>
+                <h:commandButton value="Limpar" class="btn btn-primary" action="#{administradorMB.limpar()}"/>
+                <br/>
+                
+            </h:form>
+
+        
+            
+
+        </div>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <div align="center"> 
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{administradorMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{administradorMB.filtro}">Busca</button>
+                </div>
+            
+            </h:form>
+            
+            <br/>            
+
+
+            <h:form>               
+
+                <h:dataTable value="#{administradorMB.listar()}" var="u" border="0" styleClass="tabela"
+                                 headerClass="cabecalho" rowClasses="ultimo,primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            ID
+                        </f:facet>
+                        #{u.idadm}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            USUÁRIO
+                        </f:facet>
+                        #{u.usuario}
+                    </h:column>
+               
+                   <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="editar"/>  
+                        </f:facet>  
+                          
+                            <h:commandLink                                 
+                                actionListener="#{administradorMB.editarAdm(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg" width="20px" height="20px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>     
+                                
+                    </h:column>                    
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="excluir"/>  
+                        </f:facet>  
+                         
+                            <h:commandLink  onclick="alert('Registro excluido com sucesso!!')"                              
+                                actionListener="#{administradorMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="20px" height="20px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>     
+                                 
+                    </h:column>                   
+
+                </h:dataTable>
+
+        
+                 
+                
+            </h:form> 
+            </div><br />
+    </h:body>
+</html>
+

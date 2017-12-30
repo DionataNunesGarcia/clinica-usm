@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Folha Pagamento</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="form">
+
+            <h:form prependId="false">
+                <h2>Consultar Folha Pagamento</h2>
+
+                <br/>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdFolhaPagMed" value="Id:" for="edIdFolhaPagMed"/>
+                    <h:inputText id="edIdFolhaPagMed" style="width: 40px" p:placeholder="ID" label="lbIdFolhaPagMed" value="#{folhaPag_MedicoMB.folhaPag_Medico.idPagamentoMedico}"/>
+
+                    <h:outputLabel id="lbFunFolhaPagMed" value="Selecione um Médico" for="edFunFolhaPagMed"/>
+                    <h:selectOneMenu id="edFunFolhaPagMed" class="input-large" style="width: 150px" value="#{folhaPag_MedicoMB.folhaPag_Medico.cadastroMedico}" converter="conversorMedico">                      
+                        <f:selectItems value="#{folhaPag_MedicoMB.cadastroMedicos}" var="med" itemLabel="#{med.nome}" itemValue="#{med}"/>  
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbObsFolhaPagMed" value="Observação:" for="edObsFolhaPagMed"/>
+                    <h:inputTextarea rows="3" id="edObsFolhaPag" p:placeholder="Observação" label="lbObsFolhaPagMed" value="#{folhaPag_MedicoMB.folhaPag_Medico.observacao}"/>
+
+                    <h:outputLabel id="lbMesFolhaPagMed" value="Equivalente ao Mês:" for="edMesFolhaPag"/>
+                    <h:inputText id="edMesFolhaPagMed" p:placeholder="Mês" label="lbMesFolhaPag" value="#{folhaPag_MedicoMB.folhaPag_Medico.mes}">
+                        <f:convertDateTime pattern="MM/yyyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbHorasFolhaPagMed" value="Horas por Mês:" for="edHorasFolhaPag"/>
+                    <h:inputText id="edHorasFolhaPag" p:placeholder="Horas por Mês" label="lbHorasFolhaPag" value="#{folhaPag_MedicoMB.folhaPag_Medico.totalHoras}"/> 
+                    
+                    <h:outputLabel id="lbOutroFolhaPag" value="Outro valor a mais:" for="edOutroFolhaPag"/>
+                    <h:inputText id="edOutroFolhaPag" p:placeholder="Salário Mês" label="lbOutroFolhaPag" value="#{folhaPag_MedicoMB.folhaPag_Medico.valorMais}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbDesFolhaPag" value="Desconto:" for="edDesFolhaPag"/>
+                    <h:inputText id="edDesFolhaPag" p:placeholder="Desconto" label="lbDesFolhaPag" value="#{folhaPag_MedicoMB.folhaPag_Medico.valorDesconto}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <br/>
+                    <h:commandButton class="btn btn-danger" value="Calcular" action="#{folhaPag_MedicoMB.valorPagarMedico()}"/>
+
+
+                    <h:outputLabel id="lbSalMesFolhaPag" value="Total à pagar:" for="edSalMesFolhaPag"/>
+                    <h:inputText id="edSalMesFolhaPag" p:placeholder="Salário Mês" label="lbSalBruFolhaPag" value="#{folhaPag_MedicoMB.folhaPag_Medico.valorTotal}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                </h:panelGrid>
+
+                <br/><br/>
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{folhaPag_MedicoMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{folhaPag_MedicoMB.limpar()}"/><br/>
+
+                <h:messages errorStyle="color: red"/>
+            </h:form>
+        </div><br/><br/><br/><br/><br/><br/>
+
+        <div align="center">
+            <br/>
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{folhaPag_MedicoMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{folhaPag_MedicoMB.filtro}">Busca</button>
+                </div>
+
+            </h:form>
+            <br/>
+            <h:form>                
+
+                <h:dataTable value="#{folhaPag_MedicoMB.listar()}" var="u" styleClass="tabela"
+                             headerClass="cabecalho"  rowClasses="ultimo, primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idPagamentoMedico}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Horas"/>
+                        </f:facet>
+                        <h:outputText value="#{u.totalHoras}"/> 
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Observação"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.observacao}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Mês"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.mes}">
+                            <f:convertDateTime pattern="MM/yyyy"/>
+                        </h:outputText> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Médico"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.cadastroMedico}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="V. Total."/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.valorTotal}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Alt"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink  
+                                actionListener="#{folhaPag_MedicoMB.setFolhaPag_Medico(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Del"/>  
+                        </f:facet>  
+                        <div class="imgCenter">  
+                            <h:commandLink   
+
+                                actionListener="#{folhaPag_MedicoMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                </h:dataTable>
+
+                <br />                
+
+            </h:form>           
+
+        </div>
+
+    </h:body>
+</html>
+

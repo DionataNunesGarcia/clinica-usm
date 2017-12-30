@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro de Categoria</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+        
+        <div align="center" class="form">
+            <h:form prependId="false">
+
+                <h2>Cadastrar Categoria </h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdCategoria" value="Id:" for="edIdCategoria"/>
+                    <h:inputText id="edIdCategoria" style="width: 40px" p:placeholder="ID" label="lbIdCategoria" value="#{categoriaUsmMB.categoriaUsm.idcategoria}"/>
+
+                    <h:outputLabel id="lbNomeCategoria" value="Quantidade Pessoas:" for="edNomeCategoria"/>
+                    <h:inputText id="edNomeCategoria" p:placeholder="Nome" label="lbNomeCategoria" value="#{categoriaUsmMB.categoriaUsm.qtdPessoa}"/>
+
+                    <h:outputLabel id="lbValorCategoria" value="Valor:" for="edValorCategoria"/>
+                    <h:inputText id="edValorCategoria" p:placeholder="Valor" label="lbValorCategoria" styleClass="datepicker" value="#{categoriaUsmMB.categoriaUsm.valor}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />
+                    </h:inputText>
+
+                </h:panelGrid>
+                <br/>
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{categoriaUsmMB.salvar()}" onclick="salvar(this.form);"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{categoriaUsmMB.excluir()}"/><br/>
+
+                <a href="ConsultarCategoria.xhtml">Consultar Categoria</a><br/>
+            </h:form>
+        </div>
+        
+    </h:body>
+</html>
+

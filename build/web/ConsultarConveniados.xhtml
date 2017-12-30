@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro Conveniados</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="form">
+
+            <h:form prependId="false">
+
+                <h2>Cadastrar Conveniado </h2>
+                <h:panelGrid columns="4">
+                    <h:outputLabel id="lbIdCliente" value="Id Cliente:" for="edIdCliente"/>
+                    <h:inputText id="edIdCliente" style="width: 40px" label="lbIdCliente" value="#{clienteMB.cliente.idcliente}"/>
+
+                    <h:outputLabel id="lbCliConv" value="Cliente" for="edCliConv"/>
+                    <h:selectOneMenu id="edCliConv" value="#{conveniadoMB.conveniado.cliente}" converter="conversorCliente">                      
+
+                        <f:selectItems value="#{conveniadoMB.clientes}" var="cat" itemLabel="#{cat.nome}" itemValue="#{cat}"/>  
+                    </h:selectOneMenu> 
+                </h:panelGrid>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbNomeConv" value="Nome:" for="edNomeConv"/>
+                    <h:inputText id="edNomeConv" p:autofocus="true" p:placeholder="Nome" required="true" requiredMessage="Campo Nome Obrigatório" label="lbNomeConv" value="#{conveniadoMB.conveniado.nome}"/>   
+
+                    <h:outputLabel id="lbNascConv" value="Data de nascimento:" for="edNascConv"/>
+                    <h:inputText id="edNascConv" label="lbNascConv" p:placeholder="Data nascimento" styleClass="datepicker" value="#{conveniadoMB.conveniado.data_nascimento}">
+                        <f:convertDateTime pattern="dd/MM/yyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbRgConv" value="RG:" for="edRgConv"/>
+                    <h:inputText id="edRgConv" label="lbRgConv" p:placeholder="RG" value="#{conveniadoMB.conveniado.rg}"/>
+
+                    <h:outputLabel id="lbCpfConv" value="CPF:" for="cpf"/>
+                    <h:inputText id="cpf" onblur="validaCPF(this.form);" p:placeholder="CPF" label="lbCpfConv" value="#{conveniadoMB.conveniado.cpf}"/>
+
+                    <h:outputLabel id="lbFoneConv" value="Telefone:" for="edFoneConv"/>
+                    <h:inputText id="edFoneConv" label="lbFoneConv" p:placeholder="Telefone" value="#{conveniadoMB.conveniado.telefone}"/>
+
+                    <h:outputLabel id="lbCelConv" value="Celular" for="edCelConv"/>
+                    <h:inputText id="edCelConv" label="lbFoneConv" p:placeholder="Celular" value="#{conveniadoMB.conveniado.celular}"/>
+
+                    <h:outputLabel id="lbSexoConv" value="Sexo" for="edSexoConv"/>
+                    <h:selectOneMenu id="edSexoConv" label="lbSexoConv" value="#{conveniadoMB.conveniado.sexo}">
+                        <f:selectItem id="m" itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem id="f" itemLabel="Feminino" itemValue="F" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbObsConv" value="Observação:" for="edObsConv"/>
+                    <h:inputTextarea id="edObsConv" label="lbObsConv" p:placeholder="Observação" rows="4" cols="18" value="#{conveniadoMB.conveniado.observacao}"/>
+
+
+
+                </h:panelGrid>
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{conveniadoMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{conveniadoMB.limpar()}"/><br/>
+
+
+                <h:messages errorStyle="color: red"/>
+            </h:form>
+        </div>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+
+        <div align="center">
+
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{conveniadoMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{conveniadoMB.filtro}">Busca</button>
+                </div>
+
+            </h:form>
+
+            <br/>
+
+            <h:form>                
+
+                <h:dataTable value="#{conveniadoMB.listar()}" var="u" styleClass="tabela"
+                             headerClass="cabecalho" rowClasses="ultimo, primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idconveniado}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="NOME"/>
+                        </f:facet>
+                        <h:outputText value="#{u.nome}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="TELEFONE"/>
+                        </f:facet>
+                        <h:outputText value="#{u.telefone}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="DATA DE NASCIMENTO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.data_nascimento}">
+                            <f:convertDateTime pattern="dd/MM/yyy"/>
+                        </h:outputText> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="RG"/> 
+                        </f:facet>
+                        <h:outputText value="#{u.rg}"/> 
+                    </h:column>                  
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CPF"/> 
+                        </f:facet>
+                        <h:outputText value="#{u.cpf}"/> 
+                    </h:column>                  
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ENDEREÇO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.observacao}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="SEXO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.sexo}"/> 
+                    </h:column>
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Editar"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink actionListener="#{conveniadoMB.setConveniado(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Excluir"/>  
+                        </f:facet>  
+                        <div class="imgCenter">  
+                            <h:commandLink actionListener="#{conveniadoMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                </h:dataTable>
+
+                <br />                
+
+            </h:form>           
+
+        </div>
+
+    </h:body>
+</html>
+

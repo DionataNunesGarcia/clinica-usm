@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro Dependentes</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="form">
+
+            <h:form prependId="false">
+                <h2>Cadastrar Dependentes </h2>
+                <h:panelGrid columns="4">
+
+                    <h:outputLabel id="lbCliConv" value="Cliente" for="edCliConv"/>
+                    <h:selectOneMenu id="edCliConv" value="#{dependentesMB.dependentes.cliente}" converter="conversorCliente">                      
+
+                        <f:selectItems value="#{dependentesMB.clientes}" var="cat" itemLabel="#{cat.nome}" itemValue="#{cat}"/>  
+                    </h:selectOneMenu> 
+                </h:panelGrid>
+                <br/>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdDepen" value="Id:" for="edIdDepen"/>
+                    <h:inputText id="edIdDepen" style="width: 40px" p:placeholder="ID" label="lbIdDepen" value="#{dependentesMB.dependentes.iddependentes}"/>
+
+                    <h:outputLabel id="lbNomeDepen" value="Nome:" for="edNomeDepen"/>
+                    <h:inputText id="edNomeDepen"  p:placeholder="Nome" label="lbNomeDepen" value="#{dependentesMB.dependentes.nome}"/>
+
+                    <h:outputLabel id="lbNascCliente" value="Data de nascimento:" for="edNascCliente"/>
+                    <h:inputText id="edNascCliente"  p:placeholder="Data Nascimeto" label="lbNascCliente" styleClass="datepicker" value="#{dependentesMB.dependentes.data_nascimento}"/>
+
+                    <h:outputLabel id="lbCpfCliente" value="CPF:" for="cpf"/>
+                    <h:inputText id="cpf"  p:placeholder="CPF" onblur="validaCPF(this.form);" label="lbCpfCliente" value="#{dependentesMB.dependentes.cpf}"/>
+
+                    <h:outputLabel id="lbSexoCliente" value="Sexo" for="edSexoCliente"/>
+                    <h:selectOneMenu id="edSexoCliente" label="lbSexoCliente" value="#{dependentesMB.dependentes.sexo}">
+                        <f:selectItem itemLabel="" itemValue="" />
+                        <f:selectItem id="m" itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem id="f" itemLabel="Feminino" itemValue="F" />
+                    </h:selectOneMenu>
+
+
+                </h:panelGrid><br/><br/>
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{dependentesMB.salvar()}" onclick="salvar(this.form);"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{dependentesMB.limpar()}"/><br/>
+
+                <a href="ConsultarDependentes.xhtml">Consultar Dependentes</a><br/>
+
+            </h:form>
+        </div>
+
+    </h:body>
+</html>
+

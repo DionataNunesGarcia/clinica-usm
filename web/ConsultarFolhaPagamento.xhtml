@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Folha Pagamento</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="form">
+
+            <h:form prependId="false">
+                <h2>Consultar Folha Pagamento</h2>
+
+                <br/>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdFolhaPag" value="Id:" for="edIdFolhaPag"/>
+                    <h:inputText id="edIdFolhaPag" style="width: 40px" p:placeholder="ID" label="lbIdFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.idFolhaPagamento}"/>
+
+                    <h:outputLabel id="lbFunFolhaPag" value="Selecione um Funcionário" for="edFunFolhaPag"/>
+                    <h:selectOneMenu id="edFunFolhaPag" class="input-large" style="width: 150px" value="#{folhaPagamentoMB.folhaPagamento.funcionario}" converter="conversorFuncionario">                      
+                        <f:selectItems value="#{folhaPagamentoMB.funcionarios}" var="fun" itemLabel="#{fun.nome}" itemValue="#{fun}"/>  
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbHorasFolhaPag" value="Horas por Mês:" for="edHorasFolhaPag"/>
+                    <h:inputText id="edHorasFolhaPag" p:placeholder="Horas por Mês" label="lbHorasFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.horasMes}"/> 
+
+                    <h:outputLabel id="lbHoras50FolhaPag" value="Horas 50%:" for="edHoras50FolhaPag"/>
+                    <h:inputText id="edHoras50FolhaPag" p:placeholder="Horas 50%" label="lbHoras50FolhaPag" value="#{folhaPagamentoMB.folhaPagamento.horas50}"/> 
+
+                    <h:outputLabel id="lbHoras100FolhaPag" value="Horas 100%:" for="edHoras100FolhaPag"/>
+                    <h:inputText id="edHoras100FolhaPag" p:placeholder="Horas 100%" label="lbHoras100FolhaPag" value="#{folhaPagamentoMB.folhaPagamento.horas100}"/> 
+
+                    <h:outputLabel id="lbHorasFalFolhaPag" value="Horas Faltosas:" for="edHorasFalFolhaPag"/>
+                    <h:inputText id="edHorasFalFolhaPag" p:placeholder="Horas Faltosas" label="lbHorasFalFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.horasFaltosas}"/> 
+
+                    <h:outputLabel id="lbVTFolhaPag" value="Vale Transporte:" for="edVTFolhaPag"/>
+                    <h:inputText id="edVTFolhaPag" p:placeholder="Vale Transporte" label="lbVTFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.valeTransporte}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbInssFolhaPag" value="Inss:" for="edInssFolhaPag"/>
+                    <h:inputText id="edInssFolhaPag" p:placeholder="Inss" label="lbInssFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.inss}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbInsFolhaPag" value="Insalubridade:" for="edInsFolhaPag"/>
+                    <h:inputText id="edInsFolhaPag" p:placeholder="Insalubridade" label="lbInsFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.insalubre}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbAdiFolhaPag" value="Adiantamento:" for="edAdiFolhaPag"/>
+                    <h:inputText id="edAdiFolhaPag" p:placeholder="Adiantamento" label="lbAdiFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.adiantamento}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbOutrosFolhaPag" value="Outros Valores:" for="edOutrosFolhaPag"/>
+                    <h:inputText id="edOutrosFolhaPag" p:placeholder="Outros" label="lbOutrosFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.outros}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbRedFolhaPag" value="Arredondamento:" for="edRedFolhaPag"/>
+                    <h:inputText id="edRedFolhaPag" p:placeholder="Red" label="lbRedFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.red}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbMesFolhaPag" value="Equivalente ao Mês:" for="edMesFolhaPag"/>
+                    <h:inputText id="edMesFolhaPag" p:placeholder="Mês" label="lbMesFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.mes}">
+                        <f:convertDateTime pattern="MM/yyyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbTipoFun" value="Cargo:" for="edTipoFun"/>
+                    <h:selectOneMenu id="edTipoFun" label="lbTipoFun" value="#{folhaPagamentoMB.folhaPagamento.cargo}">
+                        <f:selectItem/>
+                        <f:selectItem id="Adm" itemLabel="Administrador" itemValue="administrador"/>
+                        <f:selectItem id="Med" itemLabel="Médico" itemValue="medico"/>
+                        <f:selectItem id="Ate" itemLabel="Atendente" itemValue="atendente"/>
+                        <f:selectItem id="Enf" itemLabel="Enfermeiro(a)" itemValue="enfermeiro"/>
+                        <f:selectItem id="Est" itemLabel="Estagiário" itemValue="estagiario"/>
+                        <f:selectItem id="Ti" itemLabel="T. I." itemValue="ti"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbObsFolhaPag" value="Observação:" for="edObsFolhaPag"/>
+                    <h:inputTextarea rows="3" id="edObsFolhaPag" p:placeholder="Observação" label="lbObsFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.observacao}"/>
+                    
+                    <br/>
+                    <h:commandButton class="btn btn-danger" value="Calcular" action="#{folhaPagamentoMB.valorPagar()}"/>
+
+                </h:panelGrid><br/><br/>
+
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbSalMesFolhaPag" value="Salário Mês:" for="edSalMesFolhaPag"/>
+                    <h:inputText id="edSalMesFolhaPag" p:placeholder="Salário Mês" label="lbSalBruFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.totalTrabalhadas}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbTot50FolhaPag" value="Total 50%:" for="edTot50FolhaPag"/>
+                    <h:inputText id="edTot50FolhaPag" p:placeholder="Total 50%" label="lbTot50FolhaPag" value="#{folhaPagamentoMB.folhaPagamento.total50}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbTot100FolhaPag" value="Total 100%:" for="edTot100FolhaPag"/>
+                    <h:inputText id="edTot100FolhaPag" p:placeholder="Salário Bruto" label="lbTot100FolhaPag" value="#{folhaPagamentoMB.folhaPagamento.total100}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbSalBruFolhaPag" value="Salário Bruto:" for="edSalBruFolhaPag"/>
+                    <h:inputText id="edSalBruFolhaPag" p:placeholder="Salário Bruto" label="lbSalBruFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.salarioBruto}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbDescontoFolhaPag" value="Descontos:" for="edDescontosFolhaPag"/>
+                    <h:inputText id="edDescontoFolhaPag" p:placeholder="Descontos" label="lbDescontosFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.desconto}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbLiqFolhaPag" value="Liquído" for="edLiqFolhaPag"/>
+                    <h:inputText id="edLiqFolhaPag" p:placeholder="Liquído" label="lbLiqFolhaPag" value="#{folhaPagamentoMB.folhaPagamento.liquido}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                </h:panelGrid>
+
+                <br/><br/>
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{folhaPagamentoMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{folhaPagamentoMB.limpar()}"/><br/>
+
+                <h:messages errorStyle="color: red"/>
+            </h:form>
+        </div><br/><br/><br/><br/><br/><br/>
+
+        <div align="center">
+            <br/>
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{folhaPagamentoMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{folhaPagamentoMB.filtro}">Busca</button>
+                </div>
+
+            </h:form>
+            <br/>
+            <h:form>                
+
+                <h:dataTable value="#{folhaPagamentoMB.listar()}" var="u" styleClass="tabela"
+                             headerClass="cabecalho"  rowClasses="ultimo, primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idFolhaPagamento}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Horas"/>
+                        </f:facet>
+                        <h:outputText value="#{u.horasMes}"/> 
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Hs. 50%"/>
+                        </f:facet>
+                        <h:outputText value="#{u.horas50}"/> 
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Hs. 100%"/>
+                        </f:facet>
+                        <h:outputText value="#{u.horas100}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Faltas"/>
+                        </f:facet>
+                        <h:outputText value="#{u.horasFaltosas}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Inss"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.inss}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="V. Trans."/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.valeTransporte}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Insalubridade"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.insalubre}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Salário Bruto"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.salarioBruto}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Adiantamento"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.adiantamento}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Outros"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.outros}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Desconto"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.desconto}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Liquído"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.liquido}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cargo"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.cargo}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Observação"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.observacao}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Mês"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.mes}">
+                            <f:convertDateTime pattern="MM/yyyy"/>
+                        </h:outputText> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Funcionario"/>
+                        </f:facet>                        
+                        <h:outputText value="#{u.funcionario}"/>
+                    </h:column>
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Alt"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink  
+                                actionListener="#{folhaPagamentoMB.setFolhaPagamento(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Del"/>  
+                        </f:facet>  
+                        <div class="imgCenter">  
+                            <h:commandLink   
+
+                                actionListener="#{folhaPagamentoMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                </h:dataTable>
+
+                <br />                
+
+            </h:form>           
+
+        </div>
+
+    </h:body>
+</html>
+

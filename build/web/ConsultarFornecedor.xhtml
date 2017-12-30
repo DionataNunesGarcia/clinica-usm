@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Cadastro de Fornecedor</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+       
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+        
+        <div align="center" class="form">
+            <h:form prependId="false">
+                <h2>Cadastrar Fornecedor</h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdFor" value="Id:" for="edIdFor"/>
+                    <h:inputText id="edIdFor" label="lbIdFor" style="width: 40px" value="#{fornecedorMB.fornecedor.idfornecedor}"/>
+
+                    <h:outputLabel id="lbRazaoFor" value="Razao Social:" for="edRazaoFor"/>
+                    <h:inputText id="edRazaoFor" p:autofocus="true" p:placeholder="Razao Social" label="lbRazaoFor" value="#{fornecedorMB.fornecedor.razaoSocial}"/>
+
+                    <h:outputLabel id="lbNomeFanFor" value="Nome Fantasia:" for="edNomeFanFor"/>
+                    <h:inputText id="edNomeFanFor" p:autofocus="true" p:placeholder="Nome Fantasia" label="lbRazaoFor" value="#{fornecedorMB.fornecedor.nomeFantasia}"/>
+
+                    <h:outputLabel id="lbFoneFor" value="Telefone:" for="edFoneFor"/>
+                    <h:inputText id="edFoneFor" p:placeholder="Telefone" label="lbFoneFor" value="#{fornecedorMB.fornecedor.fone}"/>
+
+                    <h:outputLabel id="lbCnpjFor" value="CNPJ:" for="Cnpj"/>
+                    <h:inputText id="edCnpjFor" p:placeholder="CNPJ"  value="#{fornecedorMB.fornecedor.cnpj}"/>
+
+                    <h:outputLabel id="lbEmailFor" value="E-mail:" for="edEmailFun"/>
+                    <h:inputText id="edEmailFor" p:placeholder="exemplo@exemplo.com" label="lbEmailFun" value="#{fornecedorMB.fornecedor.email}"/>
+
+                    <h:outputLabel id="lbSiteFor" value="Site:" for="edSiteFor"/>
+                    <h:inputText id="edSiteFor" p:placeholder="http://www." label="lbSiteFor" value="#{fornecedorMB.fornecedor.site}"/>
+
+                    <h:outputLabel id="lbCepFun" value="Cep:" for="cep"/>
+                    <h:inputText id="cep" p:placeholder="Cep" onblur="consultacep(this.value)" label="lbCepFun" value="#{fornecedorMB.fornecedor.cep}"/>
+
+                    <h:outputLabel id="lbEndFun" value="Endereço:" for="logradouro"/>
+                    <h:inputText id="logradouro" p:placeholder="Endereço" label="lbEndFun" value="#{fornecedorMB.fornecedor.endereco}"/>
+
+                    <h:outputLabel id="lbNumFun" value="Numero:" for="edNumFun"/>
+                    <h:inputText id="edNumFun" p:placeholder="N°" style="width: 40px" label="lbNumFun" value="#{fornecedorMB.fornecedor.numero}"/>
+
+                    <h:outputLabel id="lbComFun" value="Complemento:" for="edComFun"/>
+                    <h:inputText id="edComFun" p:placeholder="Complemento" label="lbComFune" value="#{fornecedorMB.fornecedor.complemento}"/>
+
+                    <h:outputLabel id="lbBairroFun" value="Bairro:" for="bairro"/>
+                    <h:inputText id="bairro" p:placeholder="Bairro" label="lbBairroFun" value="#{fornecedorMB.fornecedor.bairro}"/>
+
+                    <h:outputLabel id="lbCidFun" value="Cidade:" for="localidade"/>
+                    <h:inputText id="localidade" p:placeholder="Cidade" label="lbCidFun" value="#{fornecedorMB.fornecedor.cidade}"/>
+
+                    <h:outputLabel id="lbUfFun" value="Estado:" for="uf"/>
+                    <h:inputText id="uf" p:placeholder="UF" style="width: 40px" label="lbUfFun" value="#{fornecedorMB.fornecedor.uf}">
+                        <f:validateLength minimum="2" maximum="2"/>
+                    </h:inputText>
+                    
+                    <h:outputLabel id="lbObsFor" value="Descrição Produto/Serviço" for="edObsFor"/>
+                    <h:inputTextarea id="edObsFor"  p:placeholder="Observação" label="lbObsFor" rows="4" cols="20" value="#{fornecedorMB.fornecedor.descricaoProduto}"/>
+
+                </h:panelGrid><br/>
+
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{fornecedorMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{fornecedorMB.limpar()}"/><br/>
+
+                
+                <h:messages errorStyle="color: red"/>
+            </h:form>
+        </div> 
+        
+        
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        
+        <div align="center">
+            <br/>
+            
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{fornecedorMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{fornecedorMB.filtro}">Busca</button>
+                </div>
+            
+            </h:form>
+            
+            <br/>
+
+            <h:form>                
+
+                <h:dataTable value="#{fornecedorMB.listar()}" var="u" styleClass="order-table"
+    			headerClass="cabecalho" rowClasses="ultimo, primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idfornecedor}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Razão Social"/>
+                        </f:facet>
+                        <h:outputText value="#{u.razaoSocial}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nome Fantasia"/> 
+                        </f:facet>
+                        <h:outputText value="#{u.nomeFantasia}"/> 
+                    </h:column> 
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Telefone"/>
+                        </f:facet>
+                        <h:outputText value="#{u.fone}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CNPJ"/>
+                        </f:facet>
+                        <h:outputText value="#{u.cnpj}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="E-mail"/>
+                        </f:facet>
+                        <h:outputText value="#{u.email}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Site"/>
+                        </f:facet>
+                        <h:outputText value="#{u.site}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ENDEREÇO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.endereco}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="NUMERO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.numero}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="COMPLEMENTO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.complemento}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="BAIRRO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.bairro}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CEP"/>
+                        </f:facet>
+                        <h:outputText value="#{u.cep}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CIDADE"/>
+                        </f:facet>
+                        <h:outputText value="#{u.cidade}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="UF"/>
+                        </f:facet>
+                        <h:outputText value="#{u.uf}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Produto/Serviço"/>
+                        </f:facet>
+                        <h:outputText value="#{u.descricaoProduto}"/> 
+                    </h:column>
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Alterar"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink   
+
+                                actionListener="#{fornecedorMB.setFornecedor(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg"  width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Excluir"/>  
+                        </f:facet>  
+                        <div class="imgCenter">  
+                            <h:commandLink 
+                                actionListener="#{fornecedorMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column>             
+
+                </h:dataTable>
+                <br />                
+
+            </h:form>           
+
+        </div>
+    </h:body>
+</html>
+

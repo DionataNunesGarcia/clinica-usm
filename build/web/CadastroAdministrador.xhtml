@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Lista de administradores</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+        
+    </h:head>
+
+    <h:body>
+          
+        <ui:include src="menuAdmin.xhtml"/>
+  
+        <br/>
+
+       <div  class="form" align="center">
+
+            <h:form prependId="false" id="form">      
+
+                <h2>Cadastro de Administradores</h2>        
+
+                <h:panelGrid columns="1" >
+
+                    
+                    <h:inputHidden id="edID" value="#{administradorMB.administrador.idadm}"/>                    
+                    
+                    <h:inputText id="edusuario" p:autofocus="true" p:placeholder="USUÁRIO" value="#{administradorMB.administrador.usuario}" label="usuario" onkeypress="return arrumaEnter(this, event)">
+                        <f:validateLength maximum="20" minimum="03"/> 
+                    </h:inputText>                    
+                    
+                    <h:inputSecret id="edsenha" p:placeholder="SENHA" value="#{administradorMB.administrador.senha}" label="passaword" onkeypress="return arrumaEnter(this, event)">
+                        <f:validateLength maximum="20" minimum="01"/> 
+                    </h:inputSecret>
+
+
+                </h:panelGrid>
+
+                <br />    
+
+                <h:commandButton value="Incluir"  class="btn btn-primary" action="#{administradorMB.salvar()}"/>                
+                <h:commandButton value="Limpar" class="btn btn-primary" action="#{administradorMB.limpar()}"/><br/>
+                <a href="ConsultarAdministrador.xhtml">Consultar Administrador</a><br/>
+            </h:form>
+
+        
+        </div>
+
+    </h:body>
+</html>
+

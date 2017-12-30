@@ -1,0 +1,360 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro de Clientes</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="container-fluid form">
+
+            <h:form prependId="false">
+
+                <h2>Consultar Cliente Titular </h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdCliente" value="Id:" for="edIdCliente"/>
+                    <h:inputText id="edIdCliente" style="width: 40px" label="lbIdCliente" value="#{clienteMB.cliente.idcliente}"/>
+
+                    <h:outputLabel id="lbNomeCliente" value="Nome:" for="edNomeCliente"/>
+                    <h:inputText id="edNomeCliente" p:autofocus="true" p:placeholder="Nome" label="lbNomeCliente" value="#{clienteMB.cliente.nome}"/>
+
+                    <h:outputLabel id="lbNascCliente" value="Data de Nasc.:" for="edNascCliente"/>
+                    <h:inputText id="edNascCliente" p:placeholder="Data de nascimento" label="lbNascCliente" styleClass="datepicker" value="#{clienteMB.cliente.data_nascimento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbRgCliente" value="RG:" for="edRgCliente"/>
+                    <h:inputText id="edRgCliente" p:placeholder="RG" label="lbRgCliente" value="#{clienteMB.cliente.rg}"/>
+
+                    <h:outputLabel id="lbCpfCliente" value="CPF:" for="cpf"/>
+                    <h:inputText id="cpfq" maxlength="11" onblur="validaCPF(this.form);" p:placeholder="CPF" label="lbCpfCliente" value="#{clienteMB.cliente.cpf}"/>
+
+                    <h:outputLabel id="lbFoneCliente" value="Telefone:" for="edFoneCliente"/>
+                    <h:inputText id="edFoneCliente" required="true" p:placeholder="Telefone" label="lbFoneCliente" value="#{clienteMB.cliente.telefone}"/>
+
+                    <h:outputLabel id="lbCelCliente" value="Celular:" for="edCelCliente"/>
+                    <h:inputText id="edCelCliente" p:placeholder="Celular" label="lbFoneCliente" value="#{clienteMB.cliente.celular}"/>
+
+                    <h:outputLabel id="lbEmailCliente" value="E-mail:" for="edEmailCliente"/>
+                    <h:inputText id="edEmailCliente" p:placeholder="exemplo@exemplo.com" label="lbEmailCliente" value="#{clienteMB.cliente.email}"/>
+
+                    <h:outputLabel id="lbSexoCliente" value="Sexo" for="edSexoCliente"/>
+                    <h:selectOneMenu id="selectbasic" class="input-medium" value="#{clienteMB.cliente.sexo}">
+                        <f:selectItem itemLabel="" itemValue="" />
+                        <f:selectItem id="MASC" itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem id="FEM" itemLabel="Feminino" itemValue="F" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbCobrCliente" value="Dia da Cobrança:" for="edCobrCliente"/>
+                    <h:selectOneMenu id="edCobrCliente" class="input-mini" label="lbCobrCliente" value="#{clienteMB.cliente.data_cobranca}">
+                        <f:selectItem id="zer" itemLabel="" itemValue="" />
+                        <f:selectItem id="um" itemLabel="01" itemValue="01"/>
+                        <f:selectItem id="dois" itemLabel="02" itemValue="02" />
+                        <f:selectItem id="tres" itemLabel="03" itemValue="03" />
+                        <f:selectItem id="quatro" itemLabel="04" itemValue="04" />
+                        <f:selectItem id="cinco" itemLabel="05" itemValue="05" />
+                        <f:selectItem id="seis" itemLabel="06" itemValue="06" />
+                        <f:selectItem id="sete" itemLabel="07" itemValue="07" />
+                        <f:selectItem id="oito" itemLabel="08" itemValue="08" />
+                        <f:selectItem id="nove" itemLabel="09" itemValue="09" />
+                        <f:selectItem id="dez" itemLabel="10" itemValue="10" />
+                        <f:selectItem id="onze" itemLabel="11" itemValue="11" />
+                        <f:selectItem id="doze" itemLabel="12" itemValue="12" />
+                        <f:selectItem id="treze" itemLabel="13" itemValue="13" />
+                        <f:selectItem id="quatorze" itemLabel="14" itemValue="14" />
+                        <f:selectItem id="quinze" itemLabel="15" itemValue="15" />
+                        <f:selectItem id="dezesseis" itemLabel="16" itemValue="16" />
+                        <f:selectItem id="dezessete" itemLabel="17" itemValue="17" />
+                        <f:selectItem id="dezoito" itemLabel="18" itemValue="18" />
+                        <f:selectItem id="dezenove" itemLabel="19" itemValue="19" />
+                        <f:selectItem id="vinte" itemLabel="20" itemValue="20" />
+                        <f:selectItem id="vinteUm" itemLabel="21" itemValue="21" />
+                        <f:selectItem id="vinteDois" itemLabel="22" itemValue="22" />
+                        <f:selectItem id="vinteTres" itemLabel="23" itemValue="23" />
+                        <f:selectItem id="vinteQuatro" itemLabel="24" itemValue="24" />
+                        <f:selectItem id="vinteCinco" itemLabel="25" itemValue="25" />
+                        <f:selectItem id="vinteSeis" itemLabel="26" itemValue="26" />
+                        <f:selectItem id="vinteSete" itemLabel="27" itemValue="27" />
+                        <f:selectItem id="vinteOito" itemLabel="28" itemValue="28" />
+                        <f:selectItem id="vinteNove" itemLabel="29" itemValue="29" />
+                        <f:selectItem id="trinta" itemLabel="30" itemValue="30" />
+                        <f:selectItem id="trintaUm" itemLabel="31" itemValue="31" />  
+                        <f:convertDateTime pattern="dd"/>
+                    </h:selectOneMenu>                    
+
+                    <h:outputLabel id="lbCepCliente" value="Cep:" for="cep"/>
+                    <h:inputText id="cep" onblur="consultacep(this.value)" p:pattern="\d{5}-?\d{3}" p:placeholder="Cep" label="lbCepCliente" value="#{clienteMB.cliente.cep}"/>
+
+                    <h:outputLabel id="lbEndCliente" value="Endereço:" for="edEndCliente"/>
+                    <h:inputText id="endereco" label="lbEndCliente" p:placeholder="Endereço" value="#{clienteMB.cliente.endereco}"/>
+
+                    <h:outputLabel id="lbNumCliente" value="Numero:" for="edNumCliente"/>
+                    <h:inputText id="edNumCliente" style="width: 40px" label="lbNumCliente" value="#{clienteMB.cliente.numero}"/>
+
+                    <h:outputLabel id="lbComCliente" value="Complemento" for="edComCliente"/>
+                    <h:inputText id="edComCliente" p:placeholder="Complemento" label="lbComCliente" value="#{clienteMB.cliente.complemento}"/>
+
+                    <h:outputLabel id="lbBairroCliente" value="Bairro:" for="edBairroCliente"/>
+                    <h:inputText id="bairro" p:placeholder="Bairro" label="lbBairroCliente" value="#{clienteMB.cliente.bairro}"/>
+
+                    <h:outputLabel id="lbCidCliente" value="Cidade:" for="edCidCliente"/>
+                    <h:inputText id="cidade" p:placeholder="Cidade" label="lbCidCliente" value="#{clienteMB.cliente.cidade}"/>
+
+                    <h:outputLabel id="lbUfCliente" value="Estado" for="edUfCliente"/>
+                    <h:inputText id="estado" p:placeholder="UF" style="width: 40px" label="lbUfVen"  value="#{clienteMB.cliente.estado}"/>
+
+                    <h:outputLabel id="edTitularCliente" value="Titular Dependente" for="lbTitularCliente"/>
+                    <h:selectBooleanCheckbox id="lbTitularCliente" value="#{clienteMB.cliente.titular}"/>
+
+                    <h:outputLabel id="lbStatusCliente" value="Status" for="edStatusCliente"/>
+                    <h:selectOneMenu id="edStatusCliente" class="input-medium" label="lbStatusCliente" value="#{clienteMB.cliente.status}">
+                        <f:selectItem id="zero" itemLabel="" itemValue="" />
+                        <f:selectItem id="Ativo" itemLabel="Ativo" itemValue="ativo"/>
+                        <f:selectItem id="Inativo" itemLabel="Inativo" itemValue="inativo" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbCobrancaCli" value="Forma Cobranca:" for="edCobrancaCli"/>
+                    <h:selectOneMenu id="edCobrancaCli" class="input-medium" value="#{clienteMB.cliente.formaCobranca}" converter="conversorFormaCobranca">                      
+
+                        <f:selectItems value="#{clienteMB.formaCobrancas}" var="u" itemLabel="#{u.tipo}" itemValue="#{u}"/>  
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbConvenioCli" value="Convênio" for="edConvenioCli"/>
+                    <h:selectOneMenu id="edConvenioCli" class="input-medium" value="#{clienteMB.cliente.convenio}" converter="conversorConvenio">                      
+
+                        <f:selectItems value="#{clienteMB.convenios}" var="con" itemLabel="#{con.nome}" itemValue="#{con}"/>  
+                    </h:selectOneMenu><br/> 
+
+                    <h:outputLabel id="lbCatCli" value="Categoria" for="edCatCli"/>
+                    <h:selectOneMenu id="edCatCli" class="input-medium" value="#{clienteMB.cliente.categoriaUsm}" converter="conversorCategoriaUsm">                      
+
+                        <f:selectItems value="#{clienteMB.categorias}" var="cat" itemLabel="#{cat.qtdPessoa}" itemValue="#{cat}"/>  
+                    </h:selectOneMenu><br/> 
+
+
+                </h:panelGrid>
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{clienteMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{clienteMB.limpar()}"/><br/>
+
+            </h:form>
+
+        </div>
+        
+        <div align="center" class="table-responsive">
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:placeholder="Pesquisar Nome" class="span2 search-query" value="#{clienteMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{clienteMB.filtro}">Busca</button><br/>
+
+                    <h:inputText p:placeholder="Pesquisar Fone" class="span2 search-query" value="#{clienteMB.filtroFone}"/>
+                    <button type="submit" class="btn btn-primary" value="#{clienteMB.filtroFone}">Busca</button><br/>
+               
+                    <h:inputText p:placeholder="Pesquisar CPF" class="span2 search-query" value="#{clienteMB.filtroFone}"/>
+                    <button type="submit" class="btn btn-primary" value="#{clienteMB.filtroFone}">Busca</button>
+
+                </div>
+
+            </h:form>
+
+
+            <br/>
+
+            <h:form>                
+
+                <h:dataTable value="#{clienteMB.listar()}" var="u" border="1" styleClass="tabela"
+                             headerClass="cabecalho" rowClasses="ultimo, primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idcliente}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nome"/>
+                        </f:facet>
+                        <h:outputText value="#{u.nome}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fone"/>
+                        </f:facet>
+                        <h:outputText value="#{u.telefone}"/> 
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="RG"/> 
+                        </f:facet>
+                        <h:outputText value="#{u.rg}"/> 
+                    </h:column>                  
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Data Nasc."/>
+                        </f:facet>
+                        <h:outputText value="#{u.data_nascimento}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText> 
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CPF"/> 
+                        </f:facet>
+                        <h:outputText value="#{u.cpf}"/> 
+                    </h:column>                  
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="E-mail"/>
+                        </f:facet>
+                        <h:outputText value="#{u.email}"/>
+                    </h:column>                  
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="End."/>
+                        </f:facet>
+                        <h:outputText value="#{u.endereco}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="N°"/>
+                        </f:facet>
+                        <h:outputText value="#{u.numero}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Comp."/>
+                        </f:facet>
+                        <h:outputText value="#{u.complemento}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Bairro"/>
+                        </f:facet>
+                        <h:outputText value="#{u.bairro}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cep"/>
+                        </f:facet>
+                        <h:outputText value="#{u.cep}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cidade"/>
+                        </f:facet>
+                        <h:outputText value="#{u.cidade}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="UF"/>
+                        </f:facet>
+                        <h:outputText value="#{u.estado}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Status"/>
+                        </f:facet>
+                        <h:outputText value="#{u.status}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Titular"/>
+                        </f:facet>
+                        <h:outputText value="#{u.titular}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cobrança"/>
+                        </f:facet>
+                        <h:outputText value="#{u.data_cobranca}">
+                            <f:convertDateTime pattern="dd"/>
+                        </h:outputText> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Convenio"/>
+                        </f:facet>
+                        <h:outputText value="#{u.convenio}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Forma Cobrança"/>
+                        </f:facet>
+                        <h:outputText value="#{u.formaCobranca}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Categoria"/>
+                        </f:facet>
+                        <h:outputText value="#{u.categoriaUsm}"/> 
+                    </h:column>
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Ações"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink  
+                                actionListener="#{clienteMB.setCliente(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink> 
+                            <h:commandLink  
+                                actionListener="#{clienteMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>  
+                        </div>         
+                    </h:column> 
+
+                </h:dataTable>
+
+                <br />                
+
+            </h:form>   
+        </div>
+
+
+        <br/>
+
+    </h:body>
+</html>
+

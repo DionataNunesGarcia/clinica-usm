@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro de Convênios</title>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css" media="screen"/>
+        <link rel="stylesheet" href="assets/datepicker/css/datepicker.css" media="screen"/>
+        <script type="text/javascript" src="assets/js/jquery-1.7.1.js"></script>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+        <script type="text/javascript" src="assets/datepicker/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="assets/datepicker/js/bootstrap-datepicker.pt-BR.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                var options = new Array();
+                options['language'] = 'pt-BR';
+                $('.datepicker').datepicker(options);
+            })
+        </script>
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="form">
+
+            <h:form prependId="false">
+
+                <h2>Cadastrar Cliente Titular</h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdCliente" value="Id:" for="edIdCliente"/>
+                    <h:inputText id="edIdCliente" style="width: 40px" label="lbIdCliente" value="#{clienteMB.cliente.idcliente}"/>
+
+                    <h:outputLabel id="lbNomeCliente" value="Nome:" for="edNomeCliente"/>
+                    <h:inputText id="edNomeCliente" p:autofocus="true" p:placeholder="Nome" label="lbNomeCliente" value="#{clienteMB.cliente.nome}"/>
+
+                    <h:outputLabel id="lbNascCliente" value="Data de Nasc.:" for="edNascCliente"/>
+                    <h:inputText id="edNascCliente" class="datepicker" p:placeholder="Data de nascimento" label="lbNascCliente" styleClass="datepicker" value="#{clienteMB.cliente.data_nascimento}"/>
+
+                    <h:outputLabel id="lbRgCliente" value="RG:" for="edRgCliente"/>
+                    <h:inputText id="edRgCliente" p:placeholder="RG" label="lbRgCliente" value="#{clienteMB.cliente.rg}"/>
+
+                    <h:outputLabel id="lbCpfCliente" value="CPF:" for="cpf"/>
+                    <h:inputText id="cpfq" maxlength="11" onblur="validaCPF(this.form);" p:placeholder="CPF" label="lbCpfCliente" value="#{clienteMB.cliente.cpf}"/>
+
+                    <h:outputLabel id="lbFoneCliente" value="Telefone:" for="edFoneCliente"/>
+                    <h:inputText id="edFoneCliente" required="true" p:placeholder="Telefone" label="lbFoneCliente" value="#{clienteMB.cliente.telefone}"/>
+
+                    <h:outputLabel id="lbCelCliente" value="Celular:" for="edCelCliente"/>
+                    <h:inputText id="edCelCliente" p:placeholder="Celular" label="lbFoneCliente" value="#{clienteMB.cliente.celular}"/>
+
+                    <h:outputLabel id="lbEmailCliente" value="E-mail:" for="edEmailCliente"/>
+                    <h:inputText id="edEmailCliente" p:placeholder="exemplo@exemplo.com" label="lbEmailCliente" value="#{clienteMB.cliente.email}"/>
+
+                    <h:outputLabel id="lbSexoCliente" value="Sexo" for="edSexoCliente"/>
+                    <h:selectOneMenu id="selectbasic" class="input-medium" label="lbSexoCliente" value="#{clienteMB.cliente.sexo}">
+                        <f:selectItem itemLabel="" itemValue="" />
+                        <f:selectItem id="maaa" itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem id="fsss" itemLabel="Feminino" itemValue="F" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbCobrCliente" value="Data de Cobrança:" for="edCobrCliente"/>
+                    <h:inputText id="edCobrCliente" p:placeholder="Data de Cobrança" label="lbCobrCliente" styleClass="datepicker"  value="#{clienteMB.cliente.data_cobranca}"/>
+
+                    <h:outputLabel id="lbCepCliente" value="Cep:" for="cep"/>
+                    <h:inputText id="cep" onblur="consultacep(this.value)" p:pattern="\d{5}-?\d{3}" p:placeholder="Cep" label="lbCepCliente" value="#{clienteMB.cliente.cep}"/>
+
+                    <h:outputLabel id="lbEndCliente" value="Endereço:" for="edEndCliente"/>
+                    <h:inputText id="endereco" label="lbEndCliente" p:placeholder="Endereço" value="#{clienteMB.cliente.endereco}"/>
+
+                    <h:outputLabel id="lbNumCliente" value="Numero:" for="edNumCliente"/>
+                    <h:inputText id="edNumCliente" style="width: 40px" label="lbNumCliente" value="#{clienteMB.cliente.numero}"/>
+
+                    <h:outputLabel id="lbComCliente" value="Complemento" for="edComCliente"/>
+                    <h:inputText id="edComCliente" p:placeholder="Complemento" label="lbComCliente" value="#{clienteMB.cliente.complemento}"/>
+
+                    <h:outputLabel id="lbBairroCliente" value="Bairro:" for="edBairroCliente"/>
+                    <h:inputText id="bairro" p:placeholder="Bairro" label="lbBairroCliente" value="#{clienteMB.cliente.bairro}"/>
+
+                    <h:outputLabel id="lbCidCliente" value="Cidade:" for="edCidCliente"/>
+                    <h:inputText id="cidade" p:placeholder="Cidade" label="lbCidCliente" value="#{clienteMB.cliente.cidade}"/>
+
+                    <h:outputLabel id="lbUfCliente" value="Estado" for="edUfCliente"/>
+                    <h:inputText id="estado" p:placeholder="UF" style="width: 40px" label="lbUfVen"  value="#{clienteMB.cliente.estado}"/>
+
+                    <h:outputLabel id="edTitularCliente" value="Titular Dependente" for="lbTitularCliente"/>
+                    <h:selectBooleanCheckbox id="lbTitularCliente" value="#{clienteMB.cliente.titular}"/>
+
+                    <h:outputLabel id="lbStatusCliente" value="Status" for="edStatusCliente"/>
+                    <h:selectOneMenu id="edStatusCliente" class="input-medium" label="lbStatusCliente" value="#{clienteMB.cliente.status}">
+                        <f:selectItem id="zero" itemLabel="" itemValue="" />
+                        <f:selectItem id="Ativo" itemLabel="Ativo" itemValue="ativo"/>
+                        <f:selectItem id="Inativo" itemLabel="Inativo" itemValue="inativo" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbCobrancaCli" value="Forma Cobranca:" for="edCobrancaCli"/>
+                    <h:selectOneMenu id="edCobrancaCli" class="input-medium" value="#{clienteMB.cliente.formaCobranca}" converter="conversorFormaCobranca">                      
+
+                        <f:selectItems value="#{clienteMB.formaCobrancas}" var="u" itemLabel="#{u.tipo}" itemValue="#{u}"/>  
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbConvenioCli" value="Convênio" for="edConvenioCli"/>
+                    <h:selectOneMenu id="edConvenioCli" class="input-medium" value="#{clienteMB.cliente.convenio}" converter="conversorConvenio">                      
+
+                        <f:selectItems value="#{clienteMB.convenios}" var="cat" itemLabel="#{cat.nome}" itemValue="#{cat}"/>  
+                    </h:selectOneMenu><br/> 
+
+                </h:panelGrid>
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{clienteMB.salvar()}" onclick="salvar(this.form);"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{clienteMB.limpar()}"/><br/>
+
+                <a href="ConsultarClientes.xhtml">Consultar Clientes</a><br/>
+
+                <h:messages errorStyle="color: red"/>
+
+                <br/>
+                <a href="CadastrosDependentes.xhtml">Add Dependente</a><br/>
+
+            </h:form>
+
+        </div>
+
+
+    </h:body>
+</html>
+

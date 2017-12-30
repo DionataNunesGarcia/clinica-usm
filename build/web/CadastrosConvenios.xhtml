@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro de Convênios</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+        
+        <div align="center" class="form">
+            <h:form prependId="false">
+
+                <h2>Cadastrar Convênio </h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdConvenio" value="Id:" for="edIdConvenio"/>
+                    <h:inputText id="edIdConvenio" style="width: 40px" p:placeholder="ID" label="lbNomeConvenio" value="#{convenioMB.convenio.idconvenio}"/>
+
+                    <h:outputLabel id="lbNomeConv" value="Nome:" for="edNomeConv"/>
+                    <h:inputText id="edNomeConv" p:autofocus="true" p:placeholder="Nome" label="lbNomeConv" value="#{convenioMB.convenio.nome}"/>
+
+                    <h:outputLabel id="lbNascConvenio" value="Data de Vencimento" for="edNascConvenio"/>
+                    <h:inputText id="edNascConvenio"  p:placeholder="Data Vencimento" label="lbNascConvenio" styleClass="datepicker" value="#{convenioMB.convenio.data_vencimento}"/>
+
+                    <h:outputLabel id="lbNomeResConv" value="Contato Responsável:" for="edNomeResConv"/>
+                    <h:inputText id="edNomeResConv"  p:placeholder="Responsável" label="lbNomeResConv" value="#{convenioMB.convenio.responsavel}"/>
+
+                    <h:outputLabel id="lbCargoResConv" value="Cargo:" for="edCargoResConv"/>
+                    <h:inputText id="edCargoResConv" p:placeholder="Cargo" label="lbCargoResConv" value="#{convenioMB.convenio.cargo}"/>
+
+                    <h:outputLabel id="lbAgenciaResConv" value="Agência:" for="edAgenciaResConv"/>
+                    <h:inputText id="edAgenciaResConv" p:placeholder="Agência" label="lbAgenciaResConv" value="#{convenioMB.convenio.agencia}"/>
+
+                    <h:outputLabel id="lbFoneResConv" value="Telefone:" for="edFoneResConv"/>
+                    <h:inputText id="edFoneResConv"  p:placeholder="Telefone" label="lbFoneResConv" value="#{convenioMB.convenio.telefone}"/>
+
+                    <h:outputLabel id="lbEmailResConv" value="E-Mail" for="edEmailResConv"/>
+                    <h:inputText id="edEmailResConv" p:placeholder="E-mail" label="lbEmailResConv" value="#{convenioMB.convenio.email}"/>
+
+                    <h:outputLabel id="lbObsConvenio" value="Observação:" for="edObsConvenio"/>
+                    <h:inputTextarea id="edObsConvenio"  p:placeholder="Observação" label="lbObsConvenio" rows="4" cols="20" value="#{convenioMB.convenio.observacao}"/>
+                    
+                    <h:outputLabel id="lbConvenioCli" value="Convênio" for="edConvenioCli"/>
+                    <h:selectOneMenu id="edConvenioCli" value="#{convenioMB.convenio.planos}" converter="conversorPlanos">                      
+
+                        <f:selectItems value="#{convenioMB.planos}" var="u" itemLabel="#{u.nome}" itemValue="#{u}"/>  
+                    </h:selectOneMenu>
+                    
+                </h:panelGrid>
+                
+                    <h:commandButton class="btn btn-primary" value="Salvar" action="#{convenioMB.salvar()}" onclick="salvar(this.form);"/>
+                    <h:commandButton class="btn btn-primary" value="Limpar" action="#{convenioMB.limpar()}"/><br/>
+
+                <a href="ConsultarConvenios.xhtml">Consultar Convenios</a><br/>
+                
+            </h:form>
+        </div>
+        
+    </h:body>
+</html>
+

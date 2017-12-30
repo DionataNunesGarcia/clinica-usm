@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Cadastro de Funcionarios</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="form">
+            <h:form prependId="false">
+                <h2>Cadastrar Funcionário</h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdFun" value="Id:" for="edIdFun"/>
+                    <h:inputText id="edIdFun" style="width: 40px" label="lbIdFun" value="#{funcionarioMB.funcionario.idfuncionario}"/>
+
+                    <h:outputLabel id="lbNomeFun" value="Nome:" for="edNomeFun"/>
+                    <h:inputText id="edNomeFun" p:autofocus="true" p:placeholder="Nome" label="lbNomeFun" value="#{funcionarioMB.funcionario.nome}"/>
+
+                    <h:outputLabel id="lbFoneFun" value="Telefone:" for="edFoneFun"/>
+                    <h:inputText id="edFoneFun" p:placeholder="Telefone" label="lbFoneFun" value="#{funcionarioMB.funcionario.telefone}"/>
+
+                    <h:outputLabel id="lbNascFun" value="Data de nascimento:" for="edNascFun"/>
+                    <h:inputText id="edNascFun" p:placeholder="Data de nascimento" label="lbNascFun" styleClass="datepicker" value="#{funcionarioMB.funcionario.datanasc}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbCpfFun" value="CPF:" for="cpf"/>
+                    <h:inputText id="cpf" onblur="validaCPF(this.form);" p:placeholder="CPF"  value="#{funcionarioMB.funcionario.cpf}"/>
+
+                    <h:outputLabel id="lbEmailFun" value="E-mail:" for="edEmailFun"/>
+                    <h:inputText id="edEmailFun" p:placeholder="exemplo@exemplo.com" label="lbEmailFun" value="#{funcionarioMB.funcionario.email}"/>
+
+                    <h:outputLabel id="lbSalarioFun" value="Valor Salário:" for="edSalarioFun"/>
+                    <h:inputText id="edSalarioFun" label="lbSalarioFun" value="#{funcionarioMB.funcionario.valorHora}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbCargaFun" value="Carga Horária Semanal:" for="edCargaFun"/>
+                    <h:inputText id="edCargaFun" label="lbCargaFun" value="#{funcionarioMB.funcionario.cargahoraria}"/>
+
+                    <h:outputLabel id="lbExtraFun" value="Valor Hora Extra 50%:" for="edExtraFun"/>
+                    <h:inputText id="edExtraFun" label="lbExtraFun" value="#{funcionarioMB.funcionario.valorHora50}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbExtra100Fun" value="Valor Hora Extra 100%:" for="edExtra100Fun"/>
+                    <h:inputText id="edExtra100Fun" label="lbExtra100Fun" value="#{funcionarioMB.funcionario.valorHora100}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbCepFun" value="Cep:" for="cep"/>
+                    <h:inputText id="cep" p:placeholder="Cep" onblur="consultacep(this.value)" label="lbCepFun" value="#{funcionarioMB.funcionario.cep}"/>
+
+                    <h:outputLabel id="lbEndFun" value="Endereço:" for="logradouro"/>
+                    <h:inputText id="logradouro" p:placeholder="Endereço" label="lbEndFun" value="#{funcionarioMB.funcionario.endereco}"/>
+
+                    <h:outputLabel id="lbNumFun" value="Numero:" for="edNumFun"/>
+                    <h:inputText id="edNumFun" style="width: 40px" p:placeholder="N°" label="lbNumFun" value="#{funcionarioMB.funcionario.numero}"/>
+
+                    <h:outputLabel id="lbComFun" value="Complemento:" for="edComFun"/>
+                    <h:inputText id="edComFun" p:placeholder="Complemento" label="lbComFune" value="#{funcionarioMB.funcionario.complemento}"/>
+
+                    <h:outputLabel id="lbBairroFun" value="Bairro:" for="bairro"/>
+                    <h:inputText id="bairro" p:placeholder="Bairro" label="lbBairroFun" value="#{funcionarioMB.funcionario.bairro}"/>
+
+                    <h:outputLabel id="lbCidFun" value="Cidade:" for="localidade"/>
+                    <h:inputText id="localidade" p:placeholder="Cidade" label="lbCidFun" value="#{funcionarioMB.funcionario.cidade}"/>
+
+                    <h:outputLabel id="lbUfFun" value="Estado:" for="uf"/>
+                    <h:inputText id="uf"  style="width: 40px" p:placeholder="UF" label="lbUfFun" value="#{funcionarioMB.funcionario.uf}">
+                        <f:validateLength minimum="2" maximum="2"/>
+                    </h:inputText>
+                    
+                    <h:outputLabel id="lbFunFolhaPag" value="Selecione um Cargo" for="edFunFolhaPag"/>
+                    <h:selectOneMenu id="edFunFolhaPag" class="input-large" style="width: 150px" value="#{funcionarioMB.funcionario.cargoFuncionario}" converter="conversorCargoFuncionario">                      
+                        <f:selectItems value="#{funcionarioMB.cargofuncionarios}" var="fun" itemLabel="#{fun.cargo}" itemValue="#{fun}"/>  
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbNomeLogin" value="Usuário:" for="edNomeLogin"/>
+                    <h:inputText id="edNomeLogin" p:placeholder="Usuário" label="lbNomeLogin" value="#{funcionarioMB.funcionario.usuario}"/>
+
+                    <h:outputLabel id="lbSenha" value="Senha:" for="edSenha"/>
+                    <h:inputSecret id="edSenha" p:placeholder="Senha" label="lbSenha" value="#{funcionarioMB.funcionario.senha}"/>
+
+
+                    <h:outputLabel id="lbAdmFun" value="Data de Admissão:" for="edAdmFun"/>
+                    <h:inputText id="edAdmFun" p:placeholder="Data de Admissão" label="lbAdmFun" styleClass="datepicker" value="#{funcionarioMB.funcionario.dataAdmissao}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbDemFun" value="Data de Demissão:" for="edDemFun"/>
+                    <h:inputText id="edDemFun" p:placeholder="Data de Demissão" label="lbDemFun" styleClass="datepicker" value="#{funcionarioMB.funcionario.dataDemissao}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="edAtivoFun" value="Ativo:" for="lbAtivoFun"/>
+                    <h:selectBooleanCheckbox id="lbAtivoFun" value="#{funcionarioMB.funcionario.ativo}"/>
+
+                </h:panelGrid><br/>
+
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{funcionarioMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{funcionarioMB.limpar()}"/><br/>
+
+
+                <h:messages errorStyle="color: red"/>
+            </h:form>
+        </div> 
+
+
+        
+
+        <div align="center">
+            <br/>
+
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{funcionarioMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{funcionarioMB.filtro}">Busca</button>
+                </div>
+
+            </h:form>
+
+            <br/>
+
+            <h:form>                
+
+                <h:dataTable value="#{funcionarioMB.listar()}" var="u" border="1" styleClass="order-table"
+                             headerClass="cabecalho" rowClasses="ultimo, primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idfuncionario}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nome"/>
+                        </f:facet>
+                        <h:outputText value="#{u.nome}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CPF"/> 
+                        </f:facet>
+                        <h:outputText value="#{u.cpf}"/> 
+                    </h:column> 
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fone"/>
+                        </f:facet>
+                        <h:outputText value="#{u.telefone}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="D.Nasc."/>
+                        </f:facet>
+                        <h:outputText value="#{u.datanasc}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>  
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="E-mail"/>
+                        </f:facet>
+                        <h:outputText value="#{u.email}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Endereço"/>
+                        </f:facet>
+                        <h:outputText value="#{u.endereco}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="N°"/>
+                        </f:facet>
+                        <h:outputText value="#{u.numero}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Comp."/>
+                        </f:facet>
+                        <h:outputText value="#{u.complemento}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Bairro"/>
+                        </f:facet>
+                        <h:outputText value="#{u.bairro}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cep"/>
+                        </f:facet>
+                        <h:outputText value="#{u.cep}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cidade"/>
+                        </f:facet>
+                        <h:outputText value="#{u.cidade}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Uf"/>
+                        </f:facet>
+                        <h:outputText value="#{u.uf}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Carga Horaria"/>
+                        </f:facet>
+                        <h:outputText value="#{u.cargahoraria}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Valor Hora"/>
+                        </f:facet>
+                        <h:outputText value="#{u.valorHora}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Valor Extra 50%"/>
+                        </f:facet>
+                        <h:outputText value="#{u.valorHora50}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText> 
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Valor Extra 100%"/>
+                        </f:facet>
+                        <h:outputText value="#{u.valorHora100}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cargo"/>
+                        </f:facet>
+                        <h:outputText value="#{u.tipo}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Usuário"/>
+                        </f:facet>
+                        <h:outputText value="#{u.usuario}"/> 
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Adim."/>
+                        </f:facet>
+                        <h:outputText value="#{u.dataAdmissao}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>  
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Demi."/>
+                        </f:facet>
+                        <h:outputText value="#{u.dataDemissao}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>  
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Ativo"/>
+                        </f:facet>
+                        <h:outputText value="#{u.ativo}"/>  
+                    </h:column>
+                    
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Alt"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink   
+
+                                actionListener="#{funcionarioMB.setFuncionario(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg"  width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Del"/>  
+                        </f:facet>  
+                        <div class="imgCenter">  
+                            <h:commandLink 
+                                actionListener="#{funcionarioMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column>             
+
+                </h:dataTable>
+                <br />                
+
+            </h:form>           
+
+        </div>
+    </h:body>
+</html>
+
+
+<!--                    <h:outputLabel id="lbTipoFun" value="Cargo:" for="edTipoFun"/>
+                    <h:selectOneMenu id="edTipoFun" label="lbTipoFun" value="#{funcionarioMB.funcionario.tipo}">
+                        <f:selectItem/>
+                        <f:selectItem id="Adm" itemLabel="Administrador" itemValue="administrador"/>
+                        <f:selectItem id="Med" itemLabel="Médico" itemValue="medico"/>
+                        <f:selectItem id="Ate" itemLabel="Atendente" itemValue="atendente"/>
+                        <f:selectItem id="Enf" itemLabel="Enfermeiro(a)" itemValue="enfermeiro"/>
+                        <f:selectItem id="Est" itemLabel="Estagiário" itemValue="estagiario"/>
+                        <f:selectItem id="Ti" itemLabel="T. I." itemValue="ti"/>
+                    </h:selectOneMenu>-->

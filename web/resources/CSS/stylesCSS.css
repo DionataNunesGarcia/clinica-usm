@@ -1,0 +1,16 @@
+div.login{
+    font-weight: bold;
+    color: black;
+    position: relative;
+
+}
+
+
+.rodaPe{
+    opacity: 0.5;
+    width:100%;
+    position: fixed;
+    bottom: 0; /**/ 
+    text-align:center;
+    z-index:2000;
+}

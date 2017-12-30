@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro de Planos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="assets/css/bootstrap-responsive.css" rel="stylesheet"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="form">
+            <h:form prependId="false">
+
+                <h2>Cadastrar Categoria </h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdCategoria" value="Id:" for="edIdCategoria"/>
+                    <h:inputText id="edIdCategoria" style="width: 40px" p:placeholder="ID" label="lbIdCategoria" value="#{categoriaUsmMB.categoriaUsm.idcategoria}"/>
+
+                    <h:outputLabel id="lbNomeCategoria" value="Quantidade Pessoas:" for="edNomeCategoria"/>
+                    <h:inputText id="edNomeCategoria" p:placeholder="Nome" label="lbNomeCategoria" value="#{categoriaUsmMB.categoriaUsm.qtdPessoa}"/>
+
+                    <h:outputLabel id="lbValorCategoria" value="Valor:" for="edValorCategoria"/>
+                    <h:inputText id="edValorCategoria" p:placeholder="Valor" label="lbValorCategoria" value="#{categoriaUsmMB.categoriaUsm.valor}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />
+                    </h:inputText>
+
+                </h:panelGrid>
+                <br/>
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{categoriaUsmMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{categoriaUsmMB.limpar()}"/><br/>
+
+                
+                <h:messages errorStyle="color: red"/>
+            </h:form>
+        </div>
+
+        <!--Lista-->
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+
+        <div align="center">
+            <br/>
+            <br/>
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{categoriaUsmMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{categoriaUsmMB.filtro}">Busca</button>
+                </div>
+            
+            </h:form>
+            
+
+            <br/>
+
+            <h:form>                
+
+                <h:dataTable value="#{categoriaUsmMB.listar()}" var="u" border="0" styleClass="tabela"
+                             headerClass="cabecalho"  rowClasses="ultimo, primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idcategoria}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="NOME"/>
+                        </f:facet>
+                        <h:outputText value="#{u.qtdPessoa}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="VALOR"/>
+
+                        </f:facet>
+
+                        <h:outputText value="#{u.valor}">
+                            <f:convertNumber type="currency" currencySymbol="R$" />
+                        </h:outputText> 
+
+                    </h:column>
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Alt"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink  
+
+                                actionListener="#{categoriaUsmMB.setCategoriaUsm(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Del"/>  
+                        </f:facet>  
+                        <div class="imgCenter">  
+                            <h:commandLink   
+
+                                actionListener="#{categoriaUsmMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                </h:dataTable>
+
+                <br />                
+
+            </h:form>           
+
+        </div>
+    </h:body>
+</html>
+

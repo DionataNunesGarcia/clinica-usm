@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastrar Formas de Cobranças</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+        <div align="center" class="form">
+            <h:form prependId="false">
+
+                <h2>Cadastrar Tipos de Cobrança </h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdCobr" value="Id:" for="edIdCobr"/>
+                    <h:inputText id="edIdCobr" style="width: 40px" p:placeholder="Id" label="lbIdCobr" value="#{formaCobrancaMB.formaCobranca.idcobranca}"/>
+
+                    <h:outputLabel id="lbTipoCobr" value="Tipo:" for="edTipoCobr"/>
+                    <h:inputText id="edTipoCobr" p:placeholder="Tipo" label="lbTipoCobr" value="#{formaCobrancaMB.formaCobranca.tipo}"/>
+
+<!--                    <h:outputLabel id="lbCobradorCobr"  p:placeholder="Cobrador" value="Nome do Cobrador:" for="edCobradorCobr"/>
+                    <h:inputText id="edCobradorCobr" label="lbCobradorCobr" styleClass="datepicker" value="#{formaCobrancaMB.formaCobranca.cobrador}"/>-->
+
+                </h:panelGrid>
+                <br/>
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{formaCobrancaMB.salvar()}" onclick="salvar(this.form);"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{formaCobrancaMB.limpar()}"/><br/>
+
+                <a href="ConsultarFormaCobrancas.xhtml">Consultar Formas de Cobranças</a><br/>
+
+            </h:form>
+        </div>
+
+    </h:body>
+</html>
+

@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro Dependentes</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <h:outputScript library="JavaScript" name="jquery-1.9.1.js"/>
+        <h:outputScript library="JavaScript" name="datepicker.js"/>
+        <h:outputScript library="JavaScript" name="calendario.js"/>
+        <h:outputStylesheet library="JavaScript" name="calendario.css"/>
+
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+
+        <div align="center" class="form">
+
+            <h:form prependId="false">
+                <h2>Consultar Contas Receber </h2>
+                <h:panelGrid columns="4">
+
+
+                </h:panelGrid>
+                <br/>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdContRec" value="Id:" for="edIdContRec"/>
+                    <h:inputText id="edIdContRec" style="width: 40px" p:placeholder="ID" label="lbIdContRec" value="#{contasReceberMB.contasReceber.idContasReceber}"/>
+
+                    <h:outputLabel id="lbDocumentoContRec" value="Documento:" for="edDocumentoContRec"/>
+                    <h:inputText id="edDocumentoContRec" p:autofocus="true" p:placeholder="Documento" label="lbDocumentoContRec" value="#{contasReceberMB.contasReceber.documento}"/>
+
+                    <h:outputLabel id="lbDescricaoContRec" value="Descrição:" for="edDescricaoContRec"/>
+                    <h:inputText id="edDescricaoContRec" p:autofocus="true" p:placeholder="Descrição" label="lbDescricaoContRec" value="#{contasReceberMB.contasReceber.descricao}"/>
+
+                    <h:outputLabel id="lbEmissaoContRec" value="Data de Emissão:" for="edNascContRec"/>
+                    <h:inputText id="edNascCliente"  p:placeholder="Data Emissão" label="lbNascCliente" styleClass="datepicker" value="#{contasReceberMB.contasReceber.dataEmissao}">
+                        <f:convertDateTime pattern="dd/MM/yyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbVencimentoContRec" value="Data de Vencimento" for="edVencimentoContRec"/>
+                    <h:inputText id="edVencimentoContRec"  p:placeholder="Data Vencimento" label="lbVencimentoContRec" styleClass="datepicker" value="#{contasReceberMB.contasReceber.dataVencimento}">
+                        <f:convertDateTime pattern="dd/MM/yyy"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbCliContRec" value="Cliente" for="edCliContRec"/>
+                    <h:selectOneMenu id="edCliContRec" class="input-large" style="width: 150px" value="#{contasReceberMB.contasReceber.cliente}" converter="conversorCliente">                      
+
+                        <f:selectItems value="#{contasReceberMB.clientes}" var="cat" itemLabel="#{cat.nome}" itemValue="#{cat}"/>  
+                    </h:selectOneMenu> 
+
+                    <h:outputLabel id="lbValorContRec" value="Valor:" for="edValorContRec"/>
+                    <h:inputText id="edValorContRec" p:placeholder="Valor" label="lbValorContRec" value="#{contasReceberMB.contasReceber.valor}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />
+                    </h:inputText>
+
+                    <h:outputLabel id="lbJurosContRec" value="Juros: %" for="edJurosContRec"/>
+                    <h:inputText id="edJurosContRec" p:placeholder="Juros" label="lbJurosContRec" value="#{contasReceberMB.contasReceber.juros}"/>
+
+
+                </h:panelGrid><br/><br/>
+
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{contasReceberMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{contasReceberMB.limpar()}"/><br/>
+
+                <h:messages errorStyle="color: red"/>
+            </h:form>
+        </div><br/><br/><br/><br/><br/><br/>
+        <!--Lista-->
+        <div align="center">
+            <br/>
+            <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{contasReceberMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{contasReceberMB.filtro}">Busca</button>
+                </div>
+
+            </h:form>
+
+
+            <br/>
+
+            <h:form>                
+
+                <h:dataTable value="#{contasReceberMB.listar()}" var="u" styleClass="tabela"
+                             headerClass="cabecalho"  rowClasses="ultimo, primeiro" footerClass="footer">
+                    <f:facet name="footer">
+                        <h:outputText value="TOTAL: "/>
+                        <h:outputText value="#{contasReceberMB.totalReceber}">
+                            <f:convertNumber type="currency" currencySymbol="R$" />
+                        </h:outputText>
+                    </f:facet>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idContasReceber}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="DOCUMENTO."/>
+                        </f:facet>
+                        <h:outputText value="#{u.documento}"/> 
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIÇÃO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.descricao}"/> 
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="EMISSÃO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.dataEmissao}">
+                            <f:convertDateTime pattern="dd/MM/yyy"/>
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="VENCIMENTO"/>
+                        </f:facet>
+                        <h:outputText value="#{u.dataVencimento}">
+                            <f:convertDateTime pattern="dd/MM/yyy"/>
+                        </h:outputText> 
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="VALOR"/>                            
+                        </f:facet>                        
+                        <h:outputText value="#{u.valor}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="JUROS %"/>                            
+                        </f:facet>                        
+                        <h:outputText value="#{u.juros}"/>                        
+                    </h:column>
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Alt"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink actionListener="#{contasReceberMB.setContasReceber(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Del"/>  
+                        </f:facet>  
+                        <div class="imgCenter">  
+                            <h:commandLink actionListener="#{contasReceberMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink>     
+                        </div>         
+                    </h:column> 
+
+                </h:dataTable>
+
+                <br />                
+
+            </h:form>           
+
+        </div>
+
+    </h:body>
+</html>
+

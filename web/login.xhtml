@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Clínica USM</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <h:outputScript library="calendario" name="calendario.js"/>
+        <h:outputScript library="calendario" name="datapicker.js"/>
+        <h:outputScript library="calendario" name="jquery-1.9.1.js"/>
+    </h:head>
+    <h:body>
+        
+        <div align="center" class="login">
+
+            <h4>Entre com seu Login e Senha:</h4>
+            <h:form id="loginForm">
+                
+                <h:panelGrid columns="1">
+
+
+                    <h:inputText id="edUsuLog" style="width: 145px" p:autofocus="true" p:placeholder="Usuário" label="edUsuLog"  value="#{logarAdmMB.administrador.usuario}" onkeypress="return arrumaEnter(this, event)"/>
+
+
+                    <h:inputSecret id="edUsuSenha" style="width: 145px" p:placeholder="Senha" label="edUsuSenha" value="#{logarAdmMB.administrador.senha}" onkeypress="return arrumaEnter(this, event)"/>
+
+                    <h:commandButton class="button" value="Entrar"  style="width: 155px" action="#{logarAdmMB.login()}"/>
+                    <h:messages for="senha" style="color: red"/>
+                </h:panelGrid>
+                
+
+        </h:form>
+        </div>
+    </h:body>
+</html>
+
+
+

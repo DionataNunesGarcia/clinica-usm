@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Menu</title>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+        <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <h:outputScript library="calendario" name="calendario.js"/>
+        <h:outputScript library="calendario" name="datapicker.js"/>
+        <h:outputScript library="calendario" name="jquery-1.9.1.js"/>
+    </h:head>
+    <h:body>
+
+        <div class="fixa" style="position: fixed; z-index: 90; top: -2px; width:100%; height:80px;">
+            <div>
+                <img src="resources/img/usmTransp.png" height="0" width="110" style="position: fixed; z-index: 100; left: 86%; height:80px;"/>
+            </div>
+
+            <div id='cssmenu'>
+                <ul>
+                    <li class='last'><a href='Home.xhtml'><span>USM - Convenio</span></a></li>
+
+                    <li class='has-sub'><a href='#'><span>Cadastros</span></a>
+                        <ul>
+                            <li><a href='ConsultarClientes.xhtml'><span>Clientes</span></a></li>
+                            <li><a href='ConsultarDependentes.xhtml'><span>Dependentes</span></a></li>
+                            <li><a href='ConsultarDependentesPorClie.xhtml'><span>Dependentes Por Cliente</span></a></li>
+                            <li><a href='ConsultarFornecedor.xhtml'><span>Fornecedor</span></a></li>
+                            <li><a href='ConsultarFuncionario.xhtml'><span>Funcionários</span></a></li>
+                            <li><a href='ConsultarAdministrador.xhtml'><span>Administrador</span></a></li>
+                            <li><a href='ConsultarMedicos.xhtml'><span>Médicos</span></a></li>
+
+                        </ul>
+                    </li>
+                    <li class='has-sub'><a href='#'><span>Convênios</span></a>
+                        <ul>
+                            <li><a href='ConsultarConvenios.xhtml'><span>Convênios</span></a></li>
+                            <li><a href='ConsultarPlanos.xhtml'><span>Planos</span></a></li>
+                            <li><a href='ConsultarCategoria.xhtml'><span>Categoria</span></a></li>
+                            <li><a href='ConsultarFormaCobrancas.xhtml'><span>Formas de Cobranças</span></a></li>
+
+                        </ul>
+                    </li>
+                    <li class='has-sub'><a href='#'><span>Financeiro</span></a>
+                        <ul>
+                            <li><a href='ConsultarContasReceber.xhtml'><span>Contas Receber</span></a></li>
+                            <li><a href='ConsultarContasPagar.xhtml'><span>Contas Pagar</span></a></li>
+                            <li><a href='ConsultarFolhaPagamento.xhtml'><span>Pagamento Funcionários</span></a></li>
+                            <li><a href='ConsultarFolhaPag_Medico.xhtml'><span>Pagamento Médicos</span></a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class='last'><a href='Localizacao.xhtml'><span>localização</span></a></li>
+                    <li class='last'><a href='testes.xhtml'><span>Testes</span></a></li>
+                    <li class='has-sub'><a href='#'><span>Configurações</span></a>
+                        <ul>
+                            <li><a href='ConsultarAdministrador.xhtml'><span>Configurar Usuários</span></a></li>
+                            <li class='last'><a href='index.xhtml'><span>Sair</span></a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <h:form>
+                <h4>Seja Bem Vindo #{logarAdmMB.administrador.usuario}</h4>
+            </h:form>
+        </div>
+<!--        <div class="panel panel-default">
+            <div align="center" class="panel-footer">
+                <address> <strong>Twitter, Inc.</strong><br/> 795 Folsom Ave, Suite 600<br/> San Francisco, CA 94107<br/> <abbr title="Phone">P:</abbr> (123) 456-7890</address>
+            </div> 
+        </div> -->
+    </h:body>
+</html>

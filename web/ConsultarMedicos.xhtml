@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>USM - Cadastro de Médicos</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+        
+        <div align="center" class="form">
+            <h:form prependId="false">
+
+                <h2>Cadastrar Médicos </h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdMedicos" value="Id:" for="edIdMedicos"/>
+                    <h:inputText id="edIdMedicos" style="width: 40px" p:placeholder="ID" label="lbIdMedicos" value="#{cadastroMedicoMB.cadastroMedico.idCadastroMedico}"/>
+
+                    <h:outputLabel id="lbNomeMedicos" value="Dr°:" for="edNomeMedicos"/>
+                    <h:inputText id="edNomeMedicos" p:placeholder="Nome" label="lbNomePlanos" value="#{cadastroMedicoMB.cadastroMedico.nome}"/>
+
+                    <h:outputLabel id="lbValorMedicos" value="Valor por hora:" for="edValorMedicos"/>
+                    <h:inputText id="edValorMedicos" p:placeholder="Valor por hora" label="lbValorMedicos" styleClass="datepicker" value="#{cadastroMedicoMB.cadastroMedico.valorHora}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />
+                    </h:inputText>
+
+                </h:panelGrid>
+                <br/>
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{cadastroMedicoMB.salvar()}"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{cadastroMedicoMB.excluir()}"/><br/>
+
+                <h:messages errorStyle="color: red"/>
+            </h:form>
+        </div>
+        
+        <!--Lista-->
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+
+        <div align="center">
+            <br/><br/><br/>
+             <h:form class="form-search">
+                <div class="input-append">
+                    <h:inputText p:autofocus="true" p:placeholder="Pesquisar" class="span2 search-query" value="#{cadastroMedicoMB.filtro}"/>
+                    <button type="submit" class="btn btn-primary" value="#{cadastroMedicoMB.filtro}">Busca</button>
+                </div>
+            
+            </h:form>
+
+            <br/>
+
+            <h:form>                
+
+                <h:dataTable value="#{cadastroMedicoMB.listar()}" var="u" border="0" styleClass="tabela"
+                             headerClass="cabecalho"  rowClasses="ultimo, primeiro">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{u.idCadastroMedico}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Dr°"/>
+                        </f:facet>
+                        <h:outputText value="#{u.nome}"/> 
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="VALOR HORA"/>
+                            
+                        </f:facet>                        
+                        <h:outputText value="#{u.valorHora}">
+                            <f:convertNumber type="currency" currencySymbol="R$"/>
+                        </h:outputText>
+                        
+                    </h:column>
+ 
+                    <h:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Ações"/>  
+                        </f:facet>  
+                        <div class="imgCenter2">  
+                            <h:commandLink  
+
+                                actionListener="#{cadastroMedicoMB.setCadastroMedico(u)}">  
+                                <h:graphicImage id="imgDel2" url="resources/img/editar.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo2" name="codigo2" value="#" />  
+                            </h:commandLink>    
+                            <h:commandLink   
+
+                                actionListener="#{cadastroMedicoMB.excluir(u)}">  
+                                <h:graphicImage id="imgDel" url="resources/img/excluir.jpg" width="15px" height="15px"/>  
+                                <f:param id="codigo" name="codigo" value="#" />  
+                            </h:commandLink> 
+                        </div>
+                        
+                    </h:column> 
+
+                    
+
+                </h:dataTable>
+
+                <br />                
+
+            </h:form>           
+
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Cadastro de Funcionarios</title>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap-responsive.min.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.css"/>
+        <h:outputStylesheet library="CSS" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="CSS" name="stylesCSS.css"/>
+        <h:outputStylesheet library="CSS" name="stylesForm.css"/>
+        <h:outputStylesheet library="CSS" name="stylesMenu.css"/>
+        <h:outputStylesheet library="CSS" name="stylesTabelas.css"/>
+        <h:outputStylesheet library="calendario" name="calendario.css"/>
+        <h:outputScript library="JavaScript" name="ValidaCPF.js"/>
+        <h:outputScript library="JavaScript" name="ocultardivs.js"/>
+        <script src="calendario/jquery-1.9.1.js" />
+        <script src="calendario/calendario.js" />
+        <script src="calendario/datepicker.js"/>
+       
+    </h:head>
+    <h:body>
+        <ui:include src="menuAdmin.xhtml"/>
+        
+        <div align="center" class="form">
+            <h:form prependId="false">
+                <h2>Cadastrar Funcionário</h2>
+                <h:panelGrid columns="8">
+
+                    <h:outputLabel id="lbIdFun" value="Id:" for="edIdFun"/>
+                    <h:inputText id="edIdFun" style="width: 40px" label="lbIdFun" value="#{funcionarioMB.funcionario.idfuncionario}"/>
+
+                    <h:outputLabel id="lbNomeFun" value="Nome:" for="edNomeFun"/>
+                    <h:inputText id="edNomeFun" class="input-small" p:autofocus="true" p:placeholder="Nome" label="lbNomeFun" value="#{funcionarioMB.funcionario.nome}"/>
+
+                    <h:outputLabel id="lbFoneFun" value="Telefone:" for="edFoneFun"/>
+                    <h:inputText id="edFoneFun" p:placeholder="Telefone" label="lbFoneFun" value="#{funcionarioMB.funcionario.telefone}"/>
+
+                    <h:outputLabel id="lbNascFun" value="Data de nascimento:" for="edNascFun"/>
+                    <h:inputText id="edNascFun" p:placeholder="Data de nascimento" label="lbNascFun" styleClass="datepicker" value="#{funcionarioMB.funcionario.datanasc}"/>
+
+                    <h:outputLabel id="lbCpfFun" value="CPF:" for="cpf"/>
+                    <h:inputText id="cpf" onblur="validaCPF(this.form);" p:placeholder="CPF"  value="#{funcionarioMB.funcionario.cpf}"/>
+
+                    <h:outputLabel id="lbEmailFun" value="E-mail:" for="edEmailFun"/>
+                    <h:inputText id="edEmailFun" p:placeholder="exemplo@exemplo.com" label="lbEmailFun" value="#{funcionarioMB.funcionario.email}"/>
+
+                    <h:outputLabel id="lbSalarioFun" value="Valor Salário:" for="edSalarioFun"/>
+                    <h:inputText id="edSalarioFun" label="lbSalarioFun" value="#{funcionarioMB.funcionario.valorsalario}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbCargaFun" value="Carga Horária Semanal:" for="edCargaFun"/>
+                    <h:inputText id="edCargaFun" label="lbCargaFun" value="#{funcionarioMB.funcionario.cargahoraria}"/>
+
+                    <h:outputLabel id="lbExtraFun" value="Valor Hora Extra" for="edExtraFun"/>
+                    <h:inputText id="edExtraFun" label="lbExtraFun" value="#{funcionarioMB.funcionario.valorhoraextra}">
+                        <f:convertNumber type="currency" currencySymbol="R$" />                        
+                    </h:inputText>
+
+                    <h:outputLabel id="lbCepFun" value="Cep:" for="cep"/>
+                    <h:inputText id="cep" p:placeholder="Cep" onblur="consultacep(this.value)" label="lbCepFun" value="#{funcionarioMB.funcionario.cep}"/>
+
+                    <h:outputLabel id="lbEndFun" value="Endereço:" for="logradouro"/>
+                    <h:inputText id="logradouro" p:placeholder="Endereço" label="lbEndFun" value="#{funcionarioMB.funcionario.endereco}"/>
+
+                    <h:outputLabel id="lbNumFun" value="Numero:" for="edNumFun"/>
+                    <h:inputText id="edNumFun" p:placeholder="N°" label="lbNumFun" value="#{funcionarioMB.funcionario.numero}"/>
+
+                    <h:outputLabel id="lbComFun" value="Complemento:" for="edComFun"/>
+                    <h:inputText id="edComFun" p:placeholder="Complemento" label="lbComFune" value="#{funcionarioMB.funcionario.complemento}"/>
+
+                    <h:outputLabel id="lbBairroFun" value="Bairro:" for="bairro"/>
+                    <h:inputText id="bairro" p:placeholder="Bairro" label="lbBairroFun" value="#{funcionarioMB.funcionario.bairro}"/>
+
+                    <h:outputLabel id="lbCidFun" value="Cidade:" for="localidade"/>
+                    <h:inputText id="localidade" p:placeholder="Cidade" label="lbCidFun" value="#{funcionarioMB.funcionario.cidade}"/>
+
+                    <h:outputLabel id="lbUfFun" value="Estado:" for="uf"/>
+                    <h:inputText id="uf" p:placeholder="UF" label="lbUfFun" value="#{funcionarioMB.funcionario.uf}">
+                        <f:validateLength minimum="2" maximum="2"/>
+                    </h:inputText>
+
+                    <h:outputLabel id="lbTipoFun" value="Cargo:" for="edTipoFun"/>
+                    <h:selectOneMenu id="edTipoFun" label="lbTipoFun" value="#{funcionarioMB.funcionario.tipo}">
+                        <f:selectItem itemLabel="" itemValue="" />
+                        <f:selectItem id="Med" itemLabel="Administrador" itemValue="administrador" />
+                        <f:selectItem id="Adm" itemLabel="Usuário" itemValue="usuario" />
+                        <f:selectItem id="Est" itemLabel="Cliente" itemValue="cliente" />
+
+                    </h:selectOneMenu>
+
+                    <h:outputLabel id="lbNomeLogin" value="Usuário:" for="edNomeLogin"/>
+                    <h:inputText id="edNomeLogin" p:placeholder="Usuário" label="lbNomeLogin" value="#{funcionarioMB.funcionario.usuario}"/>
+
+                    <h:outputLabel id="lbSenha" value="Senha:" for="edSenha"/>
+                    <h:inputSecret id="edSenha" p:placeholder="Senha" label="lbSenha" value="#{funcionarioMB.funcionario.senha}"/>
+
+
+                </h:panelGrid><br/>
+
+
+                <h:commandButton class="btn btn-primary" value="Salvar" action="#{funcionarioMB.salvar()}"  onclick="salvar(this.form);"/>
+                <h:commandButton class="btn btn-primary" value="Limpar" action="#{funcionarioMB.limpar()}"/><br/>
+
+                <a href="ConsultarFuncionario.xhtml">Consultar Funcionários</a><br/>
+
+
+
+            </h:form>
+        </div> 
+        
+        
+    </h:body>
+</html>
+
